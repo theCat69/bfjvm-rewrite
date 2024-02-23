@@ -1,0 +1,24 @@
+[package]
+name = "blazingly-fast-java-version-manager"
+version = "0.2.0"
+edition = "2021"
+authors = ["Félix Vadcard <vadcard.felix@gmail.com>"]
+description = "Simple, fast and efficient java version manager"
+repository = "https://github.com/theCat69/bfjvm-rewrite"
+readme = "Readme.md"
+license = "GPL-3.0-or-later"
+keywords = ["java", "version", "manager"]
+categories = ["command-line-utilities"]
+
+[[bin]]
+name = "bfjvm"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4.3.0", features = ["derive"] }
+directories = "5.0.1"
+lazy_static = "1.4.0"
+serde = { version = "1.0.163", features = ["derive"]}
+uuid = { version = "1.3.3", features = ["v4", "fast-rng"]}
+symlink = "0.1.0"
+

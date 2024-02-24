@@ -1,4 +1,4 @@
-use crate::project_dirs::ProjDirs;
+use crate::project_dirs::get_proj_dirs_lazy;
 
 mod errors;
 mod get;
@@ -13,6 +13,5 @@ mod uninstall;
 mod update;
 
 fn main() {
-    ProjDirs::new();
     println!("Hello, world!");
 }

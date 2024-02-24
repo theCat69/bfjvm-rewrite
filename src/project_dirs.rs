@@ -4,7 +4,9 @@ use std::{
 };
 
 use directories::ProjectDirs;
+use once_cell::sync::Lazy;
 
+#[derive(Clone)]
 pub struct ProjDirs {
     proj_dir: ProjectDirs,
     data_local_dir: PathBuf,
@@ -15,8 +17,10 @@ pub struct ProjDirs {
     registry_dir: PathBuf,
 }
 
+unsafe impl Sync for ProjDirs {}
+
 impl ProjDirs {
-    pub fn new() -> Self {
+    fn new() -> Self {
         let proj_dir: ProjectDirs = init_proj_dir();
         let data_local_dir: PathBuf = lazy_init_dirs(proj_dir.data_local_dir());
         let config_dir: PathBuf = lazy_init_dirs(proj_dir.config_local_dir());
@@ -34,6 +38,11 @@ impl ProjDirs {
             registry_dir,
         }
     }
+}
+
+pub fn get_proj_dirs_lazy() -> ProjDirs {
+    static PROJ_DIRS: Lazy<ProjDirs> = Lazy::new(ProjDirs::new);
+    PROJ_DIRS.clone()
 }
 
 fn init_proj_dir() -> ProjectDirs {
